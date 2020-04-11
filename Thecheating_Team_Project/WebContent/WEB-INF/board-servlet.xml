@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="defaultHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+	<bean id="boardDAO" class="board.dao.BoardDAO"/>
+	<bean id="memberDAO" class="member.dao.MemberDAO"/>
+	
+	<bean name="/listui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="board/list"></property>
+	</bean> 
+	
+	<bean name="/list.do" class="board.controller.ListActionController">
+	    <property name="dao">
+	        <ref bean="boardDAO"/>
+	    </property>
+	</bean>
+	
+	<bean name="/writeui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="board/write"></property>
+	</bean> 
+	
+	<bean name="/write.do" class="board.controller.WriteActionController">
+	    <property name="dao">
+	        <ref bean="boardDAO"/>
+	    </property>
+	</bean>
+	
+	
+	<bean name="/retrieve.do" class="board.controller.RetrieveActionController">
+	    <property name="dao">
+	        <ref bean="boardDAO"/>
+	    </property>
+	</bean>
+	
+	<bean name="/update.do" class="board.controller.UpdateActionController">
+	    <property name="dao">
+	        <ref bean="boardDAO"/>
+	    </property>
+	</bean>
+		
+	<bean name="/delete.do" class="board.controller.DeleteActionController">
+	    <property name="dao">
+	        <ref bean="boardDAO"/>
+	    </property>
+	</bean>
+	
+	<bean name="/search.do" class="board.controller.SearchActionController">
+	    <property name="dao">
+	        <ref bean="boardDAO"/>
+	    </property>
+	</bean>
+	
+	
+	<bean name="/creatememberui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="CreateMember"></property>
+	</bean> 
+	
+	<bean name="/createmember.do" class="member.controller.CreateActionController">
+	    <property name="dao">
+	        <ref bean="memberDAO"/>
+	    </property>
+	    <property name="commandClass" value="member.command.memberCommand"/>
+	</bean>
+
+	<bean name="/loginmemberui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="LoginMember"></property>
+	</bean> 
+	
+	<bean name="/loginmember.do" class="member.controller.LoginActionController">
+	    <property name="dao">
+	        <ref bean="memberDAO"/>
+	    </property>
+	    <property name="commandClass" value="member.command.memberCommand"/>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="viewResolover">
+		<property value="org.springframework.web.servlet.view.InternalResourceView" name="viewClass"/>
+		<property value="/" name="prefix"/>
+		<property value=".jsp" name="suffix"/>
+	 </bean>
+</beans>
