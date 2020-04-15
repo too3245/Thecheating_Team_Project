@@ -1,0 +1,112 @@
+**오라클 계정 생성
+1. cmd 창에서 sqlplus / as sysdba입력후
+2. conn sys as sysdba; 입력 한 뒤 설치시 지정했던 비밀번호 입력
+3. create user thecheating identified by 1234; 를 통해 프로젝트 계정생성
+4. grant connect, resource to thecheating
+5. grant create view to thecheating
+4~5번으로 접속 자원에 대한 권한, 5번의 경우 뷰생성 권한(필요하다면) 부여
+
+6. conn thecheating/1234 로 접속 후 작업 시작
+
+** 회원가입시 확인용 데이터를 위해 미리 만들어둔 확인용 계좌 테이블(acc_check)
+
+1. 시퀀스 생성
+create sequence seq_check increment by 1 start with 500001;
+
+2. 테이블 생성 
+create table acc_check (seq_num number not null, bank_name number not null, account_num varchar2(40) not null, holder varchar2(40) not null, balance number default 0 not null, stats number default 1 not null, val_date date, primary key(seq_num));
+
+* 칼럼 정보
+seq_num : 시퀀스넘버가 들어가는 부분 제일 앞자리는 대분류번호 앞에서 두번째는 소분류 번호 나머지 자리는 들어갈 수 있는 인덱스 번호를 뜻한다.
+bank_name : 은행 정보 1-국민 2-기업 3-신한 4-우리
+account_num : 계좌번호
+holder : 예금주명
+balance : 잔고
+stats : 상태 1 - 사용중인 메인 계좌 2 - 사용중인 서브 계좌 3 - 비사용중인 계좌
+val_date : 유효기간 형식적인 것을 맞추기위해 모두다 2030-04-01로 임의로 둠
+
+3. 초기 설정 값 넣기
+
+1 국민 (계좌 번호 양식 : xxxxxx-xx-xxxxxx)
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 1, '112233-44-556677', '김갑자', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 1, '221133-44-556677', '이순신', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 1, '332211-44-556677', '백영렬', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 1, '112233-44-665577', '박정아', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 1, '112233-44-667755', '최현우', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 1, '442233-11-557766', '정성원', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 1, '112233-55-446677', '하진성', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 1, '114433-22-556677', '조이서', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 1, '112233-66-554477', '권나라', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 1, '112233-77-556644', '장이수', 1000000, 1, to_date('2030-04-01'));
+
+2. 기업 (계좌번호 양식 : xxx-xxxxxx-xx-xxx)
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 2, '111-223344-55-666', '전아름', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 2, '222-113344-55-666', '김갑수', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 2, '333-221144-55-666', '이이경', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 2, '444-223311-55-666', '박근수', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 2, '555-223344-11-666', '장영수', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 2, '666-223344-55-111', '오지호', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 2, '111-332244-55-666', '한민아', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 2, '111-334422-55-666', '서지수', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 2, '111-553344-22-666', '고지석', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 2, '111-663344-55-222', '소지섭', 1000000, 1, to_date('2030-04-01'));
+
+3. 신한 (계좌 번호 양식 : xxx-xxx-xxxxxx)
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 3, '111-222-333333', '김성겸', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 3, '111-222-333344', '육성재', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 3, '111-222-333355', '김은혜', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 3, '111-222-336633', '이은진', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 3, '111-222-337733', '서은희', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 3, '111-222-883333', '김용진', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 3, '111-222-993333', '최혜진', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 3, '111-222-555555', '장진우', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 3, '111-222-666666', '박혜민', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 3, '111-222-777777', '오희은', 1000000, 1, to_date('2030-04-01'));
+
+4. 우리 (계좌 번호 양식 : xxxx-xxx-xxxxxx)
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 4, '1122-333-555555', '유호', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 4, '1122-333-444455', '박찬우', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 4, '1122-333-444466', '이준호', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 4, '1122-333-444477', '조예진', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 4, '1122-333-448844', '오혜미', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 4, '1122-333-994444', '안성희', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 4, '1122-333-440044', '구영희', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 4, '1122-333-666666', '방성훈',1000000,1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 4, '1122-333-777777', '최종원', 1000000, 1, to_date('2030-04-01'));
+
+insert into acc_check (seq_num, bank_name, account_num, holder, balance, stats, val_date) values (seq_check.Nextval, 4, '1122-333-888888', '백사랑', 1000000, 1, to_date('2030-04-01'));
