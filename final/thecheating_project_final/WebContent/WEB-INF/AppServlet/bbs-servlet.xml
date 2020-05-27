@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd" >
+<bean id="defaultHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+<bean id="BBSDAO" class="com.bbs.dao.BBSDAO" />
+<bean name="/bbsList.do" class="com.bbs.controller.BBSListActionController"><property name="dao" ><ref bean="BBSDAO"/></property></bean>
+<bean name="/bbsWriteui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController" ><property name="viewName" value="bbs/bbsWrite"></property></bean>
+<bean name="/bbsWrite.do" class="com.bbs.controller.BBSWriteActionController"><property name="dao"><ref bean="BBSDAO"/></property><property name="commandClass" value="com.bbs.command.BBSCommand"/></bean>
+<bean name="/bbsRetrieve.do" class="com.bbs.controller.BBSRetrieveActionController"><property name="dao"><ref bean="BBSDAO"/></property></bean>
+<bean name="/bbsUpdate.do" class="com.bbs.controller.BBSUpdateActionController"><property name="dao"><ref bean="BBSDAO"/></property><property name="commandClass" value="com.bbs.command.BBSCommand"/></bean>
+<bean name="/bbsUpdateui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController" ><property name="viewName" value="bbs/bbsUpdate"></property></bean>
+<bean name="/bbsDelete.do" class="com.bbs.controller.BBSDeleteActionController"><property name="dao"><ref bean="BBSDAO"/></property></bean>
+<bean name="/bbsSearch.do" class="com.bbs.controller.BBSSearchActionController"><property name="dao"><ref bean="BBSDAO"/></property></bean>
+<bean name="/bbsRequestLoginui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController" ><property name="viewName" value="bbs/bbsRequestLogin"></property></bean>
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"><property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceView" /><property name="prefix" value="/" /><property name="suffix" value=".jsp" /></bean>
+</beans>

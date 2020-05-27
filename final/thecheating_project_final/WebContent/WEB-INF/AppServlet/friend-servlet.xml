@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+					http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="defaultHandlerMapping"
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+
+	<bean id="friendDAO" class="com.friend.dao.FriendDAO" />
+	<bean id="memberDAO" class="com.member.dao.MemberDAO" />
+	
+	<!-- 친구요청 -->
+	<bean name = "/friendrequest.do" class = "com.friend.controller.FriendReqResController">
+		<property name="fridao">
+			<ref bean = "friendDAO" />
+		</property>
+		<property name="memdao">
+			<ref bean = "memberDAO" />
+		</property>
+		
+	</bean>
+	
+	<!-- 친구수락 -->
+	<bean name = "/friendyes.do" class = "com.friend.controller.FriendYesController" >
+		<property name="fridao">
+			<ref bean = "friendDAO" />
+		</property>
+		<property name="memdao">
+			<ref bean = "memberDAO" />
+		</property>
+	</bean>
+	
+	<!-- 친구 거절  -->
+	<bean name = "/friendno.do" class = "com.friend.controller.FriendNoController">
+		<property name="fridao">
+			<ref bean = "friendDAO" />
+		</property>
+		<property name="memdao">
+			<ref bean = "memberDAO" />
+		</property>
+	</bean>
+	
+	<!-- 친구전체목록 -->
+	<bean name = "/friendlist.do" class = "com.friend.controller.FriendListController">
+		<property name="fridao">
+			<ref bean = "friendDAO" />
+		</property>
+	</bean>
+	
+	<!-- 친구삭제 -->
+	<bean name = "/frienddelete.do" class = "com.friend.controller.FriendDeleteController">
+		<property name="fridao">
+			<ref bean = "friendDAO" />
+		</property>
+		<property name="memdao">
+			<ref bean = "memberDAO" />
+		</property>
+	</bean>
+	
+	<!-- 친구 ui -->
+	<bean name="/friendui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="/friendpage"></property>
+	</bean> 
+	
+	
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.InternalResourceView" />
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+</beans>

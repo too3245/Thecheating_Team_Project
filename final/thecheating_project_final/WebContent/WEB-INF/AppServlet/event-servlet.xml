@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd" >
+<bean id="defaultHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+<bean id="EventDAO" class="com.event.dao.EventDAO" />
+<bean name="/eventList.do" class="com.event.controller.EventListActionController"><property name="dao"><ref bean="EventDAO"/></property></bean>
+<bean name="/eventWriteui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController" ><property name="viewName" value="event/eventWrite"></property></bean>
+<bean name="/eventWrite.do" class="com.event.controller.EventWriteActionController"><property name="dao"><ref bean="EventDAO"/></property><property name="commandClass" value="com.event.command.EventCommand"/></bean>
+<bean name="/eventRetrieve.do" class="com.event.controller.EventRetrieveActionController"><property name="dao"><ref bean="EventDAO"/></property></bean>
+<bean name="/eventUpdate.do" class="com.event.controller.EventUpdateActionController"><property name="dao"><ref bean="EventDAO"/></property><property name="commandClass" value="com.event.command.EventCommand"/></bean>
+<bean name="/eventUpdateui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController" ><property name="viewName" value="event/eventUpdate"></property></bean>
+<bean name="/eventDelete.do" class="com.event.controller.EventDeleteActionController"><property name="dao"><ref bean="EventDAO"/></property></bean>
+<bean name="/eventSearch.do" class="com.event.controller.EventSearchActionController"><property name="dao"><ref bean="EventDAO"/></property></bean>
+<bean name="/eventRequestLoginui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController" ><property name="viewName" value="event/eventRequestLogin"></property></bean>
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"><property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceView" /><property name="prefix" value="/" /><property name="suffix" value=".jsp" /></bean>
+</beans>

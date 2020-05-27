@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+					http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="defaultHandlerMapping"
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+
+	<bean id="memberDAO" class="com.member.dao.MemberDAO" />
+	<bean id="friendDAO" class="com.friend.dao.FriendDAO" />
+	
+	
+	<!-- 로그인 -->
+	<bean name="/login.do"
+		class="com.member.controller.LoginController">
+		<property name="memdao">
+			<ref bean="memberDAO" />
+		</property>	
+	</bean>
+	
+	<!-- 로그아웃 -->
+	<bean name = "/logout.do" class="com.member.controller.LogoutController">
+	</bean>
+	<!-- 네이버 콜백 컨트롤러 이동 -->
+	<bean name = "/callback.do" class="com.member.controller.NaverController">
+	</bean>
+	<!-- 구글 콜백 컨트롤러 이동 -->
+	<bean name = "/google.do" class="com.member.controller.GoogleController">
+	</bean>
+	<!-- 회원가입버튼 클릭 -->
+	<bean name ="/joinui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/member/join"></property>
+	</bean>
+	
+	<!-- 프로필수정버튼 클릭 -->
+	<bean name ="/profilemodifyui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/member/profilemodify"></property>
+	</bean>
+	
+	<!-- 이메일중복체크 -->
+	<bean name = "/email.do" class="com.member.controller.LoginCheckController">
+		<property name="memdao">
+			<ref bean="memberDAO" />
+		</property>
+	</bean>
+	
+	<!-- 계좌확인 -->
+	<bean name = "/account.do" class="com.member.controller.AccountCheckController">
+		<property name="memdao">
+			<ref bean="memberDAO" />
+		</property>
+	</bean>
+	
+	<!-- 회원가입 -->
+	<bean name="/join.do"
+		class="com.member.controller.JoinController">
+		<property name="memdao">
+			<ref bean="memberDAO" />
+		</property>
+		<property name="commandClass"
+			value="com.member.command.MemberCommand" />
+	</bean>
+	
+	<!-- 이메일 찾기 -->
+	<bean name = "/emailfind.do" class = "com.member.controller.EmailFindController ">
+		<property name="memdao">
+			<ref bean = "memberDAO" />
+		</property>
+	</bean>
+	
+	<!-- 비밀번호 찾기 -->
+	<bean name = "/passwordfind.do" class = "com.member.controller.PasswordFindController ">
+		<property name="memdao">
+			<ref bean = "memberDAO" />
+		</property>
+	</bean>
+	
+	<!-- 비밀번호 찾기 -->
+	<bean name = "/passwordchange.do" class = "com.member.controller.PasswordChangeController ">
+		<property name="memdao">
+			<ref bean = "memberDAO" />
+		</property>
+	</bean>
+	
+	<!-- 로그인화면ui -->
+	<bean name="/loginui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="member/login"></property>
+	</bean> 
+	
+	<!-- 비밀번호변경 화면ui -->
+	<bean name="/passwordchangeui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="member/passwordchange"></property>
+	</bean> 
+	
+	<!-- 이메일 찾기 ui -->
+	<bean name="/emailfindui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="member/emailfind"></property>
+	</bean> 
+	<!-- 비밀번호 찾기 ui -->
+	<bean name="/passwordfindui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="member/passwordfind"></property>
+	</bean> 
+	
+	<!-- 마이페이지화면 -->
+	<bean name="/profile.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="member/profilepage"></property>
+	</bean> 
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.InternalResourceView" />
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+</beans>

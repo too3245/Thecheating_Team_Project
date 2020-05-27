@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd" >
+<bean id="defaultHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+<bean id="ContactDAO" class="com.contact.dao.ContactDAO" />
+<bean name="/contactList.do" class="com.contact.controller.ContactListActionController"><property name="dao"><ref bean="ContactDAO"/></property></bean>
+<bean name="/contactWriteui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController" ><property name="viewName" value="contact/contactWrite"></property></bean>
+<bean name="/contactWrite.do" class="com.contact.controller.ContactWriteActionController"><property name="dao"><ref bean="ContactDAO"/></property><property name="commandClass" value="com.contact.command.ContactCommand" /></bean>
+<bean name="/contactRetrieve.do" class="com.contact.controller.ContactRetrieveActionController"><property name="dao"><ref bean="ContactDAO"/></property></bean>
+<bean name="/contactUpdateui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController" ><property name="viewName" value="contact/contactUpdate"></property></bean>
+<bean name="/contactUpdate.do" class="com.contact.controller.ContactUpdateActionController"><property name="dao"><ref bean="ContactDAO"/></property><property name="commandClass" value="com.contact.command.ContactCommand" /></bean>
+<bean name="/contactDelete.do" class="com.contact.controller.ContactDeleteActionController"><property name="dao"><ref bean="ContactDAO"/></property></bean>
+<bean name="/contactSearch.do" class="com.contact.controller.ContactSearchActionController"><property name="dao"><ref bean="ContactDAO"/></property></bean>
+<bean name="/contactReplyWriteui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController" ><property name="viewName" value="contact/contactReplyWrite"></property></bean>
+<bean name="/contactReplyWrite.do" class="com.contact.controller.ContactReplyWriteActionController"><property name="dao"><ref bean="ContactDAO"/></property><property name="commandClass" value="com.contact.command.ContactCommand" /></bean>
+<bean name="/contactReplyRetrieve.do" class="com.contact.controller.ContactReplyRetrieveActionController"><property name="dao"><ref bean="ContactDAO"/></property></bean>
+<bean name="/contactReplyUpdateui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController" ><property name="viewName" value="contact/contactReplyUpdate"></property></bean>
+<bean name="/contactReplyUpdate.do" class="com.contact.controller.ContactReplyUpdateActionController"><property name="dao"><ref bean="ContactDAO"/></property><property name="commandClass" value="com.contact.command.ContactCommand" /></bean>
+<bean name="/contactRequestLoginui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController" ><property name="viewName" value="contact/contactRequestLogin"></property></bean>
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"><property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceView" /><property name="prefix" value="/" /><property name="suffix" value=".jsp" /></bean>
+</beans>

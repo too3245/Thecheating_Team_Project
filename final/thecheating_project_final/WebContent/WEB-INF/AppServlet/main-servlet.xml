@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	">
+	
+	
+	<bean id="defaultHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+	
+	<bean name="/chatList2.do" class="com.hy.Chat.controller.ListActionController">
+		<property name="dao">
+	        <ref bean="ChatDAO"/>
+	    </property>
+	</bean>
+	<!-- 메인 ui -->
+	<bean name="/main.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="main"></property>
+	</bean> 
+	
+	<!-- 프로젝트소개 ui -->
+	<bean name="/dutchpayui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="intro/dutchpay"></property>
+	</bean> 
+	<!-- 멤버소개 ui -->
+	<bean name="/memberui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="intro/member"></property>
+	</bean> 
+<!-- 	<bean name="/main.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController"> -->
+<!-- 	    <property name="viewName" value="main/main"></property> -->
+<!-- 	</bean>  -->
+	
+	
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="viewResolover">
+		<property value="org.springframework.web.servlet.view.InternalResourceView" name="viewClass"/>
+		<property value="/" name="prefix"/>
+		<property value=".jsp" name="suffix"/>
+	 </bean>
+</beans>

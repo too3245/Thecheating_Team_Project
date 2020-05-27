@@ -1,0 +1,14 @@
+.topNav {
+    line-height:  100px;
+}
+.login {
+    text-align: right;
+    line-height:  100px;
+}
+.header {
+    background-color: pink;
+}
+
+.mainArticle{
+    height:800px;
+}

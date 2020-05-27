@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+					http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="defaultHandlerMapping"
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+
+	<bean id="accountDAO" class="com.account.dao.AccountDAO" />
+	<bean id="memberDAO" class="com.member.dao.MemberDAO" />
+	
+	<!-- 계좌 등록하기 -->
+	<bean name = "/accountregister.do" class = "com.account.controller.AccountRegisterContorller" >
+		<property name="accdao">
+			<ref bean = "accountDAO" />
+		</property>
+		<property name="memdao">
+			<ref bean = "memberDAO" />
+		</property>
+	</bean> 
+	
+	<!-- 계좌등록하기 버튼 -->
+	<bean name ="/accountregisterui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/account/accountregister"></property>
+	</bean>
+	
+	<!-- 계좌 리스트 -->
+	<bean name = "/accountlist.do" class = "com.account.controller.AccountListController" >
+		<property name = "accdao">
+			<ref bean = "accountDAO" />
+		</property>
+	</bean>
+	
+	
+	<!-- 계좌 삭제 -->
+	<bean name = "/accountdelete.do" class = "com.account.controller.AccountDeleteController" >
+		<property name="accdao">
+			<ref bean = "accountDAO" />
+		</property>
+	</bean>
+	
+	<!-- 계좌목록 버튼 -->
+	<bean name ="/accountpageui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/account/accountpage"></property>
+	</bean>
+	
+	
+</beans>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd" >
+<bean id="defaultHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+<bean id="UpDAO" class="com.up.dao.UpDAO" />
+<bean name="/upList.do" class="com.up.controller.UpListActionController"><property name="dao"><ref bean="UpDAO"/></property></bean>
+<bean name="/upWriteui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController" ><property name="viewName" value="up/upWrite"></property></bean>
+<bean name="/upWrite.do" class="com.up.controller.UpWriteActionController"><property name="dao"><ref bean="UpDAO"/></property><property name="commandClass" value="com.up.command.UpCommand"/></bean>
+<bean name="/upRetrieve.do" class="com.up.controller.UpRetrieveActionController"><property name="dao"><ref bean="UpDAO"/></property></bean>
+<bean name="/upUpdate.do" class="com.up.controller.UpUpdateActionController"><property name="dao"><ref bean="UpDAO"/></property><property name="commandClass" value="com.up.command.UpCommand"/></bean>
+<bean name="/upUpdateui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController" ><property name="viewName" value="up/upUpdate"></property></bean>
+<bean name="/upDelete.do" class="com.up.controller.UpDeleteActionController"><property name="dao"><ref bean="UpDAO"/></property></bean>
+<bean name="/upSearch.do" class="com.up.controller.UpSearchActionController"><property name="dao"><ref bean="UpDAO"/></property></bean>
+<bean name="/upRequestLoginui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController" ><property name="viewName" value="up/upRequestLogin"></property></bean>
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"><property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceView" /><property name="prefix" value="/" /><property name="suffix" value=".jsp" /></bean>
+</beans>

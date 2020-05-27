@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	">
+	
+	
+	<bean id="defaultHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+	<bean id="ChatDAO" class="com.hy.Chat.DAO.ChatDAO"/>
+	
+	
+	<bean name="/chatList.do" class="com.hy.Chat.controller.ListActionController">
+		<property name="dao">
+	        <ref bean="ChatDAO"/>
+	    </property>
+	</bean>
+	
+	<bean name="/chatCreate.do" class="com.hy.Chat.controller.CreateActionController">
+		<property name="dao">
+	        <ref bean="ChatDAO"/>
+	    </property>
+	    <property name="commandClass" value="com.hy.Chat.ChatCommand"/>
+	</bean>
+	<bean name="/chatMain.do" class="com.hy.Chat.controller.ChatActionController">
+		<property name="dao">
+	        <ref bean="ChatDAO"/>
+	    </property>
+	</bean>
+	<bean name="/chatCreateui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="Chat/ChatCreate"></property>
+	</bean> 
+	
+	<bean name="/getMoneyui.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="money/getMoney"></property>
+	</bean>
+	
+	<bean name="/sendMoneyui.do" class="com.hy.Chat.handle.sendMoneyui">
+		<property name="dao">
+	        <ref bean="ChatDAO"/>
+	    </property>
+	</bean>
+	
+	<bean name="/clearMoneyui.do" class="com.hy.Chat.handle.clearMoneyui">
+		<property name="dao">
+	        <ref bean="ChatDAO"/>
+	    </property>
+	</bean>
+	 
+	<bean name="/getMoney.do" class="com.hy.Chat.handle.getMoney">
+		<property name="dao">
+	        <ref bean="ChatDAO"/>
+	    </property>
+	</bean>
+	
+	<bean name="/sendMoney.do" class="com.hy.Chat.handle.sendMoney">
+		<property name="dao">
+	        <ref bean="ChatDAO"/>
+	    </property>
+	</bean>
+	<bean name="/clearMoney.do" class="com.hy.Chat.handle.clearMoney">
+		<property name="dao">
+	        <ref bean="ChatDAO"/>
+	    </property>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="viewResolover">
+		<property value="org.springframework.web.servlet.view.InternalResourceView" name="viewClass"/>
+		<property value="/" name="prefix"/>
+		<property value=".jsp" name="suffix"/>
+	 </bean>
+</beans>
