@@ -1,6 +1,13 @@
-﻿create table bbs (
+﻿================================================
+1. 공지사항 안내 게시판
+================================================
+1) 시퀀스
+CREATE SEQUENCE bbs_seq START WITH 310001 INCREMENT BY 1;
+
+2) 테이블
+create table bbs (
 bbs_idx number not null,
-bbs_author varchar2(10) not null,
+bbs_author varchar2(30) not null,
 bbs_title varchar2(50) not null,
 bbs_content varchar2(1000) not null,
 bbs_writeday date default sysdate,
@@ -8,16 +15,19 @@ bbs_hit number default 0,
 primary key(bbs_idx)
 );
 
-CREATE SEQUENCE bbs_seq START WITH 310001 INCREMENT BY 1;
-
-insert into bbs(bbs_idx, bbs_author, bbs_title, bbs_content) values (bbs_seq.NEXTVAL, ?, ?, ?);
+3) 입력 테스트
 insert into bbs(bbs_idx, bbs_author, bbs_title, bbs_content) values (bbs_seq.NEXTVAL, '아벨', '제목', '내용');
 
------------------------------------------------------------------
+================================================
+2. 업데이트 안내 게시판
+================================================
+1) 시퀀스
+CREATE SEQUENCE up_seq START WITH 320001 INCREMENT BY 1;
 
+2) 테이블
 create table up (
 up_idx number(11) not null,
-up_author varchar2(10) not null,
+up_author varchar2(30) not null,
 up_title varchar2(50) not null,
 up_content varchar2(1000) not null,
 up_writeday date default sysdate,
@@ -25,16 +35,19 @@ up_hit number default 0,
 primary key(up_idx)
 );
 
-CREATE SEQUENCE up_seq START WITH 320001 INCREMENT BY 1;
-
-insert into up(up_idx, up_author, up_title, up_content) values (up_seq.NEXTVAL, ?, ?, ?);
+3) 입력 테스트
 insert into up(up_idx, up_author, up_title, up_content) values (up_seq.NEXTVAL, '아벨', '제목', '내용');
 
------------------------------------------------------------------
+================================================
+3. 이벤트 안내 게시판
+================================================
+1) 시퀀스
+CREATE SEQUENCE event_seq START WITH 330001 INCREMENT BY 1;
 
+2) 테이블
 create table event (
 event_idx number(11) not null,
-event_author varchar2(10) not null,
+event_author varchar2(30) not null,
 event_title varchar2(50) not null,
 event_content varchar2(1000) not null,
 event_writeday date default sysdate,
@@ -42,11 +55,29 @@ event_hit number default 0,
 primary key(event_idx)
 );
 
-CREATE SEQUENCE event_seq START WITH 330001 INCREMENT BY 1;
-
-insert into event(event_idx, event_author, event_title, event_content) values (event_seq.NEXTVAL, ?, ?, ?);
+3) 입력 테스트
 insert into event(event_idx, event_author, event_title, event_content) values (event_seq.NEXTVAL, '아벨', '제목', '내용');
 
------------------------------------------------------------------
 
+================================================
+4. 1:1 문의사항 안내 게시판 (답글)
+================================================
+1) 시퀀스
+CREATE SEQUENCE contact_seq START WITH 340001 INCREMENT BY 1;
 
+2) 테이블
+create table contact (
+contact_idx number(11) not null,
+contact_author varchar2(20) not null,
+contact_title varchar2(50) not null,
+contact_content varchar2(2000) not null,
+contact_writeday date default sysdate,
+contact_hit number default 0,
+re_ref number,
+re_lev number,
+re_seq number,
+primary key(contact_idx)
+);
+
+3) 입력 테스트
+insert into contact (contact_idx, contact_title, contact_author, contact_content, contact_writeday, contact_hit, re_ref, re_lev, re_seq) values(contact_seq.NEXTVAL, '제목', '글쓴이', '내용', sysdate, 0, 1, 1, 1);
